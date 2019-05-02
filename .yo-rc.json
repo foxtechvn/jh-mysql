@@ -1,0 +1,42 @@
+{
+  "generator-jhipster": {
+    "applicationType": "monolith",
+    "gitCompany": "",
+    "baseName": "App",
+    "packageName": "com.ft",
+    "packageFolder": "com/ft",
+    "serverPort": 8080,
+    "serviceDiscoveryType": false,
+    "authenticationType": "jwt",
+    "uaaBaseName": "../uaa",
+    "cacheProvider": "hazelcast",
+    "enableHibernateCache": true,
+    "websocket": "spring-websocket",
+    "databaseType": "sql",
+    "devDatabaseType": "mariadb",
+    "prodDatabaseType": "mariadb",
+    "searchEngine": false,
+    "enableSwaggerCodegen": "true",
+    "messageBroker": false,
+    "buildTool": "maven",
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "testFrameworks": [],
+    "enableTranslation": true,
+    "nativeLanguage": "en",
+    "languages": [
+      "vi",
+      "en"
+    ],
+    "clientFramework": "angularX",
+    "jhiPrefix": "jhi",
+    "jhipsterVersion": "5.8.2",
+    "jwtSecretKey": "NTE5MDU1OTgyYWI0OTIwYzVlNzIzOTM0YjExMWIxNDlhMTk3MjA1NGY2ZWUzZTQ1NGI1YTE4NGM1MDM2ZGFiZjdiNTc3ZTM5YThhMzMxNzUxODM2ZTQ3NjdkZGM5N2ZlYTIyYjI5NGE0ZWUxYTE3MTRiYWVkNDM0NzM4Mjg3N2I=",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": []
+  },
+  "git-provider": "GitHub",
+  "git-company": "foxtechvn",
+  "repository-name": "jh-mysql"
+}
