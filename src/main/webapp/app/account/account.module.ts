@@ -4,7 +4,6 @@ import { RouterModule } from '@angular/router';
 import { AppSharedModule } from 'app/shared';
 
 import {
-    PasswordStrengthBarComponent,
     RegisterComponent,
     ActivateComponent,
     PasswordComponent,
@@ -20,7 +19,6 @@ import {
         ActivateComponent,
         RegisterComponent,
         PasswordComponent,
-        PasswordStrengthBarComponent,
         PasswordResetInitComponent,
         PasswordResetFinishComponent,
         SettingsComponent

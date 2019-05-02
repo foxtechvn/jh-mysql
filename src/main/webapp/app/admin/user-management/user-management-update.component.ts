@@ -40,6 +40,7 @@ export class UserMgmtUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
+        this.user.password = this.user.password && this.user.password.trim() ? this.user.password.trim() : null;
         if (this.user.id !== null) {
             this.userService.update(this.user).subscribe(response => this.onSaveSuccess(response), () => this.onSaveError());
         } else {

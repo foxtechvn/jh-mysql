@@ -2,6 +2,7 @@
     "settings": {
         "title": "Cài đặt người dùng của [<b>{{username}}</b>]",
         "form": {
+            "image": "Ảnh đại diện",
             "firstname": "Tên",
             "firstname.placeholder": "Nhập tên của bạn",
             "lastname": "Họ",

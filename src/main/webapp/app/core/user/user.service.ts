@@ -13,10 +13,16 @@ export class UserService {
     constructor(private http: HttpClient) {}
 
     create(user: IUser): Observable<HttpResponse<IUser>> {
+        if (!user.password) {
+            delete user.password;
+        }
         return this.http.post<IUser>(this.resourceUrl, user, { observe: 'response' });
     }
 
     update(user: IUser): Observable<HttpResponse<IUser>> {
+        if (!user.password) {
+            delete user.password;
+        }
         return this.http.put<IUser>(this.resourceUrl, user, { observe: 'response' });
     }
 

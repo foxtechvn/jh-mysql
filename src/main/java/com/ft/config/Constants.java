@@ -14,4 +14,13 @@ public final class Constants {
     
     private Constants() {
     }
+    
+    public final static String MAPPING_REQUEST_UPLOAD ="/upload";
+    public final static String MAPPING_REQUEST_GET ="/api/public/uploads";
+    public final static String MAPPING_REQUEST_MANAGER ="/manager";
+    public final static String MAPPING_REQUEST_IMAGE_JPG ="/image/jpg";
+    public final static String MAPPING_REQUEST_IMAGE_PNG ="/image/png";
+    public final static String MAPPING_REQUEST_FILE ="/file";
+    
+    public static final String UPLOAD_PATH = "/srv/uploads";
 }

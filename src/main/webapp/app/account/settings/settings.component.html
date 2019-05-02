@@ -12,6 +12,22 @@
             <form name="form" role="form" (ngSubmit)="save()" #settingsForm="ngForm" *ngIf="settingsAccount" novalidate>
 
                 <div class="form-group">
+                    <label class="form-control-label" jhiTranslate="settings.form.image" for="field_image">Image Url</label>
+                    <div>
+                        <img [src]="'data:' + settingsAccount.imageContentType + ';base64,' + settingsAccount.image" style="max-height: 100px;" *ngIf="settingsAccount.image" alt="settingsAccount image" />
+                        <div *ngIf="settingsAccount.image" class="form-text text-danger clearfix">
+                            <span class="pull-left">{{settingsAccount.imageContentType}}, {{byteSize(settingsAccount.image)}}</span>
+                            <button type="button" (click)="clearInputImage('image', 'imageContentType', 'fileImage')" class="btn btn-secondary btn-xs pull-right">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                            </button>
+                        </div>
+                        <input type="file" id="file_image" (change)="setFileData($event, settingsAccount, 'image', true)" accept="image/*" jhiTranslate="entity.action.addimage" />
+                    </div>
+                    <input type="hidden" class="form-control" name="image" id="field_image" [(ngModel)]="settingsAccount.image" />
+                    <input type="hidden" class="form-control" name="imageContentType" id="field_imageContentType" [(ngModel)]="settingsAccount.imageContentType" />
+                </div>
+
+                <div class="form-group">
                     <label class="form-control-label" for="firstName" jhiTranslate="settings.form.firstname">First Name</label>
                     <input type="text" class="form-control" id="firstName" name="firstName" placeholder="{{'settings.form.firstname.placeholder' | translate}}"
                            [(ngModel)]="settingsAccount.firstName" minlength=1 maxlength=50 #firstNameInput="ngModel" required>
