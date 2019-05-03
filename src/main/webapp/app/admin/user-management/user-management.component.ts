@@ -6,8 +6,10 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
 
 import { ITEMS_PER_PAGE } from 'app/shared';
-import { AccountService, UserService, User } from 'app/core';
+import { AccountService, JhiLanguageHelper, UserService, User } from 'app/core';
 import { UserMgmtDeleteDialogComponent } from 'app/admin';
+// Search support
+import * as _ from 'lodash';
 
 @Component({
     selector: 'jhi-user-mgmt',
@@ -26,9 +28,15 @@ export class UserMgmtComponent implements OnInit, OnDestroy {
     predicate: any;
     previousPage: any;
     reverse: any;
+    // Search support
+    lodash = _;
+    searchModel: any;
+    authorities: any[];
+    languages: any[];
 
     constructor(
         private userService: UserService,
+        private languageHelper: JhiLanguageHelper,
         private alertService: JhiAlertService,
         private accountService: AccountService,
         private parseLinks: JhiParseLinks,
@@ -44,6 +52,8 @@ export class UserMgmtComponent implements OnInit, OnDestroy {
             this.reverse = data['pagingParams'].ascending;
             this.predicate = data['pagingParams'].predicate;
         });
+        // Extract search parameters from URL
+        this.activatedRoute.queryParams.subscribe(params => (this.searchModel = _.omit(params, ['sort', 'page', 'size'])));
     }
 
     ngOnInit() {
@@ -51,6 +61,12 @@ export class UserMgmtComponent implements OnInit, OnDestroy {
             this.currentAccount = account;
             this.loadAll();
             this.registerChangeInUsers();
+        });
+        this.userService.authorities().subscribe(authorities => {
+            this.authorities = authorities;
+        });
+        this.languageHelper.getAll().then(languages => {
+            this.languages = languages;
         });
     }
 
@@ -79,11 +95,13 @@ export class UserMgmtComponent implements OnInit, OnDestroy {
 
     loadAll() {
         this.userService
-            .query({
-                page: this.page - 1,
-                size: this.itemsPerPage,
-                sort: this.sort()
-            })
+            .query(
+                _.assign({}, this.searchModel, {
+                    page: this.page - 1,
+                    size: this.itemsPerPage,
+                    sort: this.sort()
+                })
+            )
             .subscribe(
                 (res: HttpResponse<User[]>) => this.onSuccess(res.body, res.headers),
                 (res: HttpResponse<any>) => this.onError(res.body)
@@ -111,10 +129,10 @@ export class UserMgmtComponent implements OnInit, OnDestroy {
 
     transition() {
         this.router.navigate(['/admin/user-management'], {
-            queryParams: {
+            queryParams: _.assign({}, this.searchModel, {
                 page: this.page,
                 sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
-            }
+            })
         });
         this.loadAll();
     }

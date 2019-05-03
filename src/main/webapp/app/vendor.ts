@@ -39,6 +39,8 @@ import {
     faTrashAlt,
     faAsterisk,
     faTasks,
+    // App specific icons
+    // End app specific icons
     faHome
 } from '@fortawesome/free-solid-svg-icons';
 

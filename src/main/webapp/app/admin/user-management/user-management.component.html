@@ -10,7 +10,6 @@
         <table class="table table-striped">
             <thead>
             <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="transition.bind(this)">
-                <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="login"><span jhiTranslate="userManagement.login">Login</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th jhiSortBy="email"><span jhiTranslate="userManagement.email">Email</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th></th>
@@ -21,11 +20,39 @@
                 <th jhiSortBy="lastModifiedDate"><span jhiTranslate="userManagement.lastModifiedDate">Last Modified Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
                 <th></th>
             </tr>
+            <tr class="form">
+                <th><input class="form-control" id="field_search_login" name="search_login" [(ngModel)]="searchModel.login" type="text" /></th>
+                <th><input class="form-control" id="field_search_email" name="search_email" [(ngModel)]="searchModel.email" type="text" /></th>
+                <th><select class="form-control" id="field_search_activated" name="search_activated" [(ngModel)]="searchModel.activated">
+                  <option [ngValue]="true" jhiTranslate="userManagement.activated">Activated</option>
+                  <option [ngValue]="false" jhiTranslate="userManagement.deactivated">Deactivated</option>
+                </select></th>
+                <th><select class="form-control"  id="field_search_langKey" name="search_langKey" [(ngModel)]="searchModel.langKey">
+                      <option *ngFor="let language of languages" [value]="language">{{language | findLanguageFromKey}}</option>
+                </select></th>
+                <th><select class="form-control" name="search_authority" [(ngModel)]="searchModel.authorities">
+                    <option *ngFor="let authority of authorities" [value]="authority">{{authority}}</option>
+                </select></th>
+                <th><input class="form-control" id="field_search_createdDate" name="search_createdDate" [(ngModel)]="searchModel.createdDate" type="text" /></th>
+                <th><input class="form-control" id="field_search_lastModifiedBy" name="search_lastModifiedBy" [(ngModel)]="searchModel.lastModifiedBy" type="text" /></th>
+                <th><input class="form-control" id="field_search_lastModifiedDate" name="search_lastModifiedDate" [(ngModel)]="searchModel.lastModifiedDate" type="text" /></th>
+                <th class="text-right">
+                    <div class="btn-group flex-btn-group-container">
+                        <button type="button" (click)="transition()" class="btn btn-primary">
+                            <fa-icon icon="search"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.search">Search</span>
+                        </button>
+                        <button type="reset" (click)="searchModel={};transition()" class="btn btn-secondary">
+                            <fa-icon icon="ban"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.reset">Reset</span>
+                        </button>
+                    </div>
+                  </th>
+            </tr>
             </thead>
             <tbody *ngIf ="users">
             <tr *ngFor="let user of users; trackBy: trackIdentity">
-                <td><a [routerLink]="['./', user.login, 'view']">{{user.id}}</a></td>
-                <td>{{user.login}}</td>
+                <td><a [routerLink]="['./', user.login, 'view']">{{user.login}}</a></td>
                 <td>{{user.email}}</td>
                 <td>
                     <button class="btn btn-danger btn-sm" (click)="setActive(user, true)" *ngIf="!user.activated"

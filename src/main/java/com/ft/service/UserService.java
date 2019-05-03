@@ -10,6 +10,7 @@ import com.ft.security.SecurityUtils;
 import com.ft.service.dto.UserDTO;
 import com.ft.service.util.RandomUtil;
 import com.ft.web.rest.errors.*;
+import com.querydsl.core.types.Predicate;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -245,8 +246,8 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public Page<UserDTO> getAllManagedUsers(Pageable pageable) {
-        return userRepository.findAllByLoginNot(pageable, Constants.ANONYMOUS_USER).map(UserDTO::new);
+    public Page<UserDTO> getAllManagedUsers(Predicate predicate, Pageable pageable) {
+        return ( predicate == null ? userRepository.findAllByLoginNot(pageable, Constants.ANONYMOUS_USER) : userRepository.findAll(predicate, pageable)).map(UserDTO::new);
     }
 
     @Transactional(readOnly = true)
